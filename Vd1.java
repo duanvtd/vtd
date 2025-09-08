@@ -73,6 +73,7 @@ class Course {
         return String.format("ID: %s | Course: %s | Credits: %d", id, name, credits);
     }
 }
+
 // ===== Chương trình chính =====
 public class CleanSchoolProgram {
     // Danh sách quản lý riêng cho từng đối tượng
