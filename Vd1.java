@@ -55,3 +55,21 @@ class Teacher {
         return String.format("ID: %s | Name: %s | Major: %s", id, name, major);
     }
 }
+
+// ===== Class Môn học =====
+class Course {
+    private String id;
+    private String name;
+    private int credits;
+
+    public Course(String id, String name, int credits) {
+        this.id = id;
+        this.name = name;
+        this.credits = credits;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s | Course: %s | Credits: %d", id, name, credits);
+    }
+}
