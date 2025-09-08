@@ -38,3 +38,20 @@ class Student {
         return String.format("ID: %s | Name: %s | Age: %d | GPA: %.2f", id, name, age, gpa);
     }
 }
+// ===== Class Giáo viên =====
+class Teacher {
+    private String id;
+    private String name;
+    private String major;
+
+    public Teacher(String id, String name, String major) {
+        this.id = id;
+        this.name = name;
+        this.major = major;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s | Name: %s | Major: %s", id, name, major);
+    }
+}
