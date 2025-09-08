@@ -1,4 +1,5 @@
 // ===== Quản lý Môn học =====
+// sua code cua dai
     private static void manageCourses(Scanner sc) {
         System.out.println("--- QUAN LY MON HOC ---");
         System.out.print("Nhap id: ");
