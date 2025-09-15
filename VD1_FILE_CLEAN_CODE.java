@@ -112,4 +112,19 @@ public class CleanSchoolProgram {
             students.forEach(System.out::println);
         }
     }
+
+    // ===== Quản lý Giáo viên =====
+    private static void manageTeachers(Scanner sc) {
+        System.out.println("--- QUAN LY GIAO VIEN ---");
+        System.out.print("Nhap id: ");
+        String id = sc.nextLine();
+        System.out.print("Nhap ten: ");
+        String name = sc.nextLine();
+        System.out.print("Nhap chuyen mon: ");
+        String major = sc.nextLine();
+
+        teachers.add(new Teacher(id, name, major));
+        teachers.forEach(System.out::println);
+    }
+
 }
