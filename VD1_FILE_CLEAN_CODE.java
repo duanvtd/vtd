@@ -140,4 +140,24 @@ public class CleanSchoolProgram {
         courses.add(new Course(id, name, credits));
         courses.forEach(System.out::println);
     }
+
+    // ===== Quản lý Đăng ký học =====
+    private static void manageEnrollments(Scanner sc) {
+        System.out.println("--- QUẢN LÝ ĐĂNG KÝ ---");
+        System.out.print("ID SV: ");
+        String sid = sc.nextLine();
+        System.out.print("ID MH: ");
+        String cid = sc.nextLine();
+
+        Student s = findStudentById(sid);
+        Course c = findCourseById(cid);
+
+        if (s != null && c != null) {
+            enrollments.add(new Enrollment(s, c));
+        } else {
+            System.out.println("Không tìm thấy SV hoặc MH!");
+        }
+
+        enrollments.forEach(System.out::println);
+    }
 }
