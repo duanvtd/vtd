@@ -1,0 +1,179 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+// ✅ Đã thêm class Student thay vì dùng List<string>
+public class Student
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public double GPA { get; set; }
+
+    public override string ToString()
+    {
+        return $"ID: {Id}, Name: {Name}, Age: {Age}, GPA: {GPA:F2}";
+    }
+}
+
+// ✅ Đã tạo class StudentManager để quản lý danh sách sinh viên
+public class StudentManager
+{
+    private List<Student> students = new List<Student>();
+
+    public void AddStudent()
+    {
+        Console.Write("Nhập ID: ");
+        string id = Console.ReadLine();
+        Console.Write("Nhập tên: ");
+        string name = Console.ReadLine();
+        Console.Write("Nhập tuổi: ");
+        if (!int.TryParse(Console.ReadLine(), out int age)) return;
+        Console.Write("Nhập GPA: ");
+        if (!double.TryParse(Console.ReadLine(), out double gpa)) return;
+
+        students.Add(new Student { Id = id, Name = name, Age = age, GPA = gpa });
+    }
+
+    public void RemoveStudent()
+    {
+        Console.Write("Nhập ID cần xóa: ");
+        string id = Console.ReadLine();
+
+        var student = students.FirstOrDefault(s => s.Id == id);
+        if (student != null)
+        {
+            students.Remove(student);
+            Console.WriteLine("✅ Đã xóa sinh viên.");
+        }
+        else
+        {
+            Console.WriteLine("❌ Không tìm thấy sinh viên.");
+        }
+    }
+
+    public void UpdateStudent()
+    {
+        Console.Write("Nhập ID cần cập nhật: ");
+        string id = Console.ReadLine();
+
+        var student = students.FirstOrDefault(s => s.Id == id);
+        if (student != null)
+        {
+            Console.Write("Tên mới: ");
+            student.Name = Console.ReadLine();
+            Console.Write("Tuổi mới: ");
+            if (int.TryParse(Console.ReadLine(), out int age))
+                student.Age = age;
+            Console.Write("GPA mới: ");
+            if (double.TryParse(Console.ReadLine(), out double gpa))
+                student.GPA = gpa;
+
+            Console.WriteLine("✅ Đã cập nhật.");
+        }
+        else
+        {
+            Console.WriteLine("❌ Không tìm thấy sinh viên.");
+        }
+    }
+
+    public void ShowAll()
+    {
+        Console.WriteLine("=== Danh sách sinh viên ===");
+        foreach (var student in students)
+        {
+            Console.WriteLine(student);
+        }
+    }
+
+    public void SearchByName()
+    {
+        Console.Write("Nhập tên: ");
+        string name = Console.ReadLine();
+        var found = students.Where(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        foreach (var student in found)
+        {
+            Console.WriteLine(student);
+        }
+    }
+
+    public void ShowExcellentStudents()
+    {
+        Console.WriteLine("=== Sinh viên GPA > 8.0 ===");
+        var excellent = students.Where(s => s.GPA > 8.0);
+        foreach (var student in excellent)
+        {
+            Console.WriteLine(student);
+        }
+    }
+
+    public void SortByName()
+    {
+        students = students.OrderBy(s => s.Name).ToList(); // ✅ Dùng LINQ thay vì Bubble Sort
+        Console.WriteLine("✅ Đã sắp xếp theo tên.");
+    }
+
+    public void SortByGPA()
+    {
+        students = students.OrderByDescending(s => s.GPA).ToList(); // ✅ Dùng LINQ thay vì Bubble Sort
+        Console.WriteLine("✅ Đã sắp xếp theo GPA.");
+    }
+}
+
+// ✅ Đã tách phần hiển thị menu thành hàm riêng, tránh hàm Main quá dài
+public class Program
+{
+    public static void Main()
+    {
+        var studentManager = new StudentManager();
+        int choice;
+
+        do
+        {
+            Console.WriteLine("\n===== MENU CHÍNH =====");
+            Console.WriteLine("1. Quản lý Sinh viên");
+            Console.WriteLine("99. Thoát");
+            Console.Write("Chọn: ");
+            int.TryParse(Console.ReadLine(), out choice);
+
+            if (choice == 1)
+            {
+                ShowStudentMenu(studentManager); // ✅ Tách thành hàm riêng
+            }
+
+        } while (choice != 99);
+    }
+
+    static void ShowStudentMenu(StudentManager studentManager)
+    {
+        int option;
+        do
+        {
+            Console.WriteLine("\n--- Quản lý Sinh viên ---");
+            Console.WriteLine("1. Thêm SV");
+            Console.WriteLine("2. Xóa SV");
+            Console.WriteLine("3. Cập nhật SV");
+            Console.WriteLine("4. Hiển thị tất cả SV");
+            Console.WriteLine("5. Tìm SV theo tên");
+            Console.WriteLine("6. SV GPA > 8");
+            Console.WriteLine("7. Sắp xếp theo tên");
+            Console.WriteLine("8. Sắp xếp theo GPA");
+            Console.WriteLine("9. Quay lại");
+            Console.Write("Chọn: ");
+            int.TryParse(Console.ReadLine(), out option);
+
+            switch (option)
+            {
+                case 1: studentManager.AddStudent(); break;
+                case 2: studentManager.RemoveStudent(); break;
+                case 3: studentManager.UpdateStudent(); break;
+                case 4: studentManager.ShowAll(); break;
+                case 5: studentManager.SearchByName(); break;
+                case 6: studentManager.ShowExcellentStudents(); break;
+                case 7: studentManager.SortByName(); break;
+                case 8: studentManager.SortByGPA(); break;
+            }
+
+        } while (option != 9);
+    }
+}
