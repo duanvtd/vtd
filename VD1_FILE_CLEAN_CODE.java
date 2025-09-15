@@ -127,4 +127,17 @@ public class CleanSchoolProgram {
         teachers.forEach(System.out::println);
     }
 
+    // ===== Quản lý Môn học =====
+    private static void manageCourses(Scanner sc) {
+        System.out.println("--- QUAN LY MON HOC ---");
+        System.out.print("Nhap id: ");
+        String id = sc.nextLine();
+        System.out.print("Nhap ten: ");
+        String name = sc.nextLine();
+        System.out.print("Nhap tin chi: ");
+        int credits = Integer.parseInt(sc.nextLine());
+
+        courses.add(new Course(id, name, credits));
+        courses.forEach(System.out::println);
+    }
 }
