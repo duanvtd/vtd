@@ -1,3 +1,4 @@
+
 heelloo
 chao moi nguoi
 
@@ -12,6 +13,4 @@ một số điểm thay đổi để phù hợp với các nguyên tắc CLEAN C
 ✅ Không lặp lại xử lý chuỗi Split('|')
 
 ✅ Dễ mở rộng thêm TeacherManager, CourseManager, v.v.
-
-
 
