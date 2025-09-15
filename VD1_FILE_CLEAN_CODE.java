@@ -161,7 +161,7 @@ public class CleanSchoolProgram {
         enrollments.forEach(System.out::println);
     }
 
-    // ===== Quản lý Điểm ====
+    // ===== Quản lý Điểm =====
     private static void manageGrades(Scanner sc) {
         System.out.println("--- QUẢN LÝ ĐIỂM ---");
         System.out.print("ID SV: ");
