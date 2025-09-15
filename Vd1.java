@@ -73,6 +73,64 @@ class Course {
         return String.format("ID: %s | Course: %s | Credits: %d", id, name, credits);
     }
 }
+// CleanSchoolProgram.java
+// Phiên bản refactor: Code sạch, OOP
+// Điểm chính: 
+// - Tách class Student/Teacher/Course thay vì lưu chuỗi "id|field1|..."
+// - Sử dụng List<T> thay cho ArrayList<String>
+// - Tách riêng từng chức năng quản lý bằng hàm -> dễ đọc, dễ bảo trì
+//GD
+import java.util.*;
+
+// ===== Class Sinh viên =====
+class Student {
+    private String id;
+    private String name;
+    private int age;
+    private double gpa;
+
+    // Constructor khởi tạo sinh viên
+    public Student(String id, String name, int age, double gpa) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gpa = gpa;
+    }
+
+    // Getter & Setter
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public int getAge() { return age; }
+    public double getGpa() { return gpa; }
+
+    public void setName(String name) { this.name = name; }
+    public void setAge(int age) { this.age = age; }
+    public void setGpa(double gpa) { this.gpa = gpa; }
+
+    // Hiển thị thông tin sinh viên
+    @Override
+    public String toString() {
+        return String.format("ID: %s | Name: %s | Age: %d | GPA: %.2f", id, name, age, gpa);
+    }
+}
+// ===== Class Giáo viên =====
+class Teacher {
+    private String id;
+    private String name;
+    private String major;
+
+    public Teacher(String id, String name, String major) {
+        this.id = id;
+        this.name = name;
+        this.major = major;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s | Name: %s | Major: %s", id, name, major);
+    }
+}
+
 
 // ===== Chương trình chính =====
 public class CleanSchoolProgram {
@@ -156,5 +214,72 @@ public class CleanSchoolProgram {
 
         courses.add(new Course(id, name, credits));
         courses.forEach(System.out::println);
+    }
+
+    // ===== Quản lý Đăng ký học =====
+    private static void manageEnrollments(Scanner sc) {
+        System.out.println("--- QUẢN LÝ ĐĂNG KÝ ---");
+        System.out.print("ID SV: ");
+        String sid = sc.nextLine();
+        System.out.print("ID MH: ");
+        String cid = sc.nextLine();
+
+        Student s = findStudentById(sid);
+        Course c = findCourseById(cid);
+
+        if (s != null && c != null) {
+            enrollments.add(new Enrollment(s, c));
+        } else {
+            System.out.println("Không tìm thấy SV hoặc MH!");
+        }
+
+        enrollments.forEach(System.out::println);
+    }
+
+    // ===== Quản lý Điểm =====
+    private static void manageGrades(Scanner sc) {
+        System.out.println("--- QUẢN LÝ ĐIỂM ---");
+        System.out.print("ID SV: ");
+        String sid = sc.nextLine();
+        System.out.print("ID MH: ");
+        String cid = sc.nextLine();
+        System.out.print("Điểm: ");
+        double score = Double.parseDouble(sc.nextLine());
+
+        Student s = findStudentById(sid);
+        Course c = findCourseById(cid);
+
+        if (s != null && c != null) {
+            grades.add(new Grade(s, c, score));
+        }
+        grades.forEach(System.out::println);
+    }
+
+    // ===== Báo cáo =====
+    private static void report() {
+        System.out.println("=== BÁO CÁO ===");
+        for (Student s : students) {
+            System.out.println("Sinh viên: " + s.getName());
+            for (Enrollment e : enrollments) {
+                if (e.getStudent().equals(s)) {
+                    System.out.print(" - Môn học: " + e.getCourse().getName());
+                    for (Grade g : grades) {
+                        if (g.getStudent().equals(s) && g.getCourse().equals(e.getCourse())) {
+                            System.out.print(" | Điểm: " + g.getScore());
+                        }
+                    }
+                    System.out.println();
+                }
+            }
+        }
+    }
+
+    // ===== Helper =====
+    private static Student findStudentById(String id) {
+        return students.stream().filter(s -> s.getId().equals(id)).findFirst().orElse(null);
+    }
+
+    private static Course findCourseById(String id) {
+        return courses.stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
     }
 }
