@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// ✅ Đã thêm class Student thay vì dùng List<string>
+// Thêm class Student thay vì dùng List<string>
 public class Student
 {
     public string Id { get; set; }
@@ -16,7 +16,7 @@ public class Student
     }
 }
 
-// ✅ Đã tạo class StudentManager để quản lý danh sách sinh viên
+// Tạo class StudentManager để quản lý danh sách sinh viên
 public class StudentManager
 {
     private List<Student> students = new List<Student>();
@@ -109,18 +109,18 @@ public class StudentManager
 
     public void SortByName()
     {
-        students = students.OrderBy(s => s.Name).ToList(); // ✅ Dùng LINQ thay vì Bubble Sort
+        students = students.OrderBy(s => s.Name).ToList(); // Dùng LINQ thay vì Bubble Sort
         Console.WriteLine("✅ Đã sắp xếp theo tên.");
     }
 
     public void SortByGPA()
     {
-        students = students.OrderByDescending(s => s.GPA).ToList(); // ✅ Dùng LINQ thay vì Bubble Sort
+        students = students.OrderByDescending(s => s.GPA).ToList(); // Dùng LINQ thay vì Bubble Sort
         Console.WriteLine("✅ Đã sắp xếp theo GPA.");
     }
 }
 
-// ✅ Đã tách phần hiển thị menu thành hàm riêng, tránh hàm Main quá dài
+// Tách phần hiển thị menu thành hàm riêng, tránh hàm Main quá dài
 public class Program
 {
     public static void Main()
@@ -138,7 +138,7 @@ public class Program
 
             if (choice == 1)
             {
-                ShowStudentMenu(studentManager); // ✅ Tách thành hàm riêng
+                ShowStudentMenu(studentManager); // Tách thành hàm riêng
             }
 
         } while (choice != 99);
