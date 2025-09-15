@@ -160,4 +160,23 @@ public class CleanSchoolProgram {
 
         enrollments.forEach(System.out::println);
     }
+
+    // ===== Quản lý Điểm =====
+    private static void manageGrades(Scanner sc) {
+        System.out.println("--- QUẢN LÝ ĐIỂM ---");
+        System.out.print("ID SV: ");
+        String sid = sc.nextLine();
+        System.out.print("ID MH: ");
+        String cid = sc.nextLine();
+        System.out.print("Điểm: ");
+        double score = Double.parseDouble(sc.nextLine());
+
+        Student s = findStudentById(sid);
+        Course c = findCourseById(cid);
+
+        if (s != null && c != null) {
+            grades.add(new Grade(s, c, score));
+        }
+        grades.forEach(System.out::println);
+    }
 }
