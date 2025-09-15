@@ -1,2 +1,17 @@
 heelloo
 chao moi nguoi
+
+Em tên Hà 
+một số điểm thay đổi để phù hợp với các nguyên tắc CLEAN CODE cho vd2.cs như sau: 
+✅ Dùng class Student thay vì chuỗi "id|name|..."
+
+✅ Tách logic quản lý sinh viên vào class StudentManager
+
+✅ Dùng LINQ để lọc, tìm, sắp xếp → ngắn gọn, dễ hiểu
+
+✅ Không lặp lại xử lý chuỗi Split('|')
+
+✅ Dễ mở rộng thêm TeacherManager, CourseManager, v.v.
+
+
+
