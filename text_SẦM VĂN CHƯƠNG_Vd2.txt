@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-// ✅ Đã thêm class Student thay vì dùng List<string>
+// ✅ Đã thêm class Student thay vì dùng List<string>.
 public class Student
 {
     public string Id { get; set; }
